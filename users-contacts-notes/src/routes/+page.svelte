@@ -1,4 +1,7 @@
 <script lang="ts">
+	import Button from '$lib/components/atoms/Button.svelte'
+	import Heading from '$lib/components/atoms/Heading.svelte'
+	import Input from '$lib/components/atoms/Input.svelte'
 	import { logUserIn } from '$lib/stores/user'
 
 	let email = ''
@@ -9,14 +12,14 @@
 	}
 </script>
 
+<Heading text="Welcome" />
 <form on:submit|preventDefault={onLogin}>
-	<label>
-		Email:
-		<input type="text" bind:value={email} />
-	</label>
-	<label>
+	<Input type="text" placeholder="john@doe.com" bind:value={email} />
+	<Input type="password" placeholder="********" bind:value={password} />
+	<!-- <label>
 		Password:
 		<input type="password" bind:value={password} />
-	</label>
-	<button type="submit">Login</button>
+	</label> -->
+	<!-- <button type="submit">Login</button> -->
+	<Button type="submit" text="Login" />
 </form>

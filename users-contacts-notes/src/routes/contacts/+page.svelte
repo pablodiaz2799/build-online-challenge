@@ -1,3 +1,7 @@
+<script>
+	import Heading from '$lib/components/atoms/Heading.svelte'
+</script>
+
 <main>
-	<h1>Contacts Page, protected tho</h1>
+	<Heading text="Contacts" />
 </main>
