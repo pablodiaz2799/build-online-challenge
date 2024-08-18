@@ -1,5 +1,12 @@
-import { type Contact } from '$lib/interfaces/contact'
-import { fetchContact, fetchContacts } from '$lib/services/contacts-service'
+import { goto } from '$app/navigation'
+import { type AddContact, type Contact, type UpdateContact } from '$lib/interfaces/contact'
+import {
+	addContact,
+	deleteContact,
+	fetchContact,
+	fetchContacts,
+	updateContact
+} from '$lib/services/contacts-service'
 import { toast } from 'svelte-sonner'
 import { get, writable } from 'svelte/store'
 
@@ -28,18 +35,17 @@ export const loadMoreContacts = async (token: string): Promise<void> => {
 }
 
 export const getContacts = async (token: string): Promise<void> => {
-	if (get(contacts).length === 0) {
-		loadingContacts.set(true)
-		canLoadMore.set(true)
-		page.set(1)
-		limit.set(10)
-		const { data, totalContacts } = await fetchContacts(1, 10, token)
-		contacts.set(data)
-		if (get(contacts).length >= totalContacts) {
-			canLoadMore.set(false)
-		}
-		loadingContacts.set(false)
+	loadingContacts.set(true)
+	canLoadMore.set(true)
+	page.set(1)
+	limit.set(10)
+	const { data, totalContacts } = await fetchContacts(1, 10, token)
+	console.log(data)
+	contacts.set(data)
+	if (get(contacts).length >= totalContacts) {
+		canLoadMore.set(false)
 	}
+	loadingContacts.set(false)
 }
 
 export const getContact = async (id: string, token: string): Promise<void> => {
@@ -50,4 +56,44 @@ export const getContact = async (id: string, token: string): Promise<void> => {
 		const data = await fetchContact(id, token)
 		selectedContact.set(data)
 	}
+}
+
+export const add = async (
+	{ name, title, email, address, cellphoneNumber, file }: AddContact,
+	token: string
+): Promise<void> => {
+	const response = await addContact({ name, title, email, address, cellphoneNumber, file }, token)
+	if (response) {
+		toast.success('Contact added')
+	} else {
+		toast.error('Error adding contact')
+	}
+}
+
+export const update = async (
+	{ _id, name, title, email, address, cellphoneNumber, file }: UpdateContact,
+	token: string
+): Promise<void> => {
+	const response = await updateContact(
+		{ _id, name, title, email, address, cellphoneNumber, file },
+		token
+	)
+	if (response) {
+		toast.success('Contact updated')
+		getContact(_id, token)
+	} else {
+		toast.error('Error updating contact')
+	}
+}
+
+export const del = async (id: string, token: string): Promise<void> => {
+	debugger
+	const response = await deleteContact(id, token)
+	if (response) {
+		toast.success('Contact deleted')
+		goto('/contacts', { replaceState: true, invalidateAll: true })
+	} else {
+		toast.error('Error deleting contact')
+	}
+	debugger
 }

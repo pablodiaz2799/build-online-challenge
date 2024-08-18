@@ -15,7 +15,7 @@
 </script>
 
 <main class="mx-auto mt-16 w-full max-w-[920px]">
-	<ContactDetail {contact} />
+	<ContactDetail {contact} {token} />
 	<!-- {#if contact}
 		<h1>{contact.name}</h1>
 		<p>{contact.email}</p>

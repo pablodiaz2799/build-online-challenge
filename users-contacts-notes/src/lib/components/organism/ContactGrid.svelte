@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Contact } from '$lib/interfaces/contact'
 	import { canLoadMore, loadingContacts, loadMoreContacts } from '$lib/stores/contacts'
-	import ContactCard from '../molecules/ContactCard.svelte'
+	import ContactCard from '$lib/components/molecules/ContactCard.svelte'
 	import InfiniteLoading from 'svelte-infinite-loading'
+	import Spinner from '$lib/components/atoms/Spinner.svelte'
 
 	export let contacts: Contact[] = []
 	export let token: string = ''

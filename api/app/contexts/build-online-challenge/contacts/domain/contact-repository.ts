@@ -11,4 +11,5 @@ export interface ContactRepository {
   findById(id: ContactId): Promise<Contact | null>
   save(contact: Contact): Promise<void>
   countByUser(userId: ContactUserId): Promise<number>
+  delete(id: ContactId): Promise<void>
 }

@@ -5,6 +5,7 @@ import { Primitives } from "contexts/shared/domain/primitives"
 import { Note } from "../../domain/note"
 import { NoteUserId } from "../../domain/value-objects/note-user-id"
 import { NoteId } from "../../domain/value-objects/note-id"
+import { NoteContactId } from "../../domain/value-objects/note-contact-id"
 
 @injectable()
 export class NoteMongoRepository implements NoteRepository {
@@ -32,5 +33,15 @@ export class NoteMongoRepository implements NoteRepository {
 
   async save(note: Note): Promise<void> {
     await this.model.create(note.toPrimitives())
+  }
+
+  async deleteByContactAndUser(
+    contactId: NoteContactId,
+    userId: NoteUserId
+  ): Promise<void> {
+    await this.model.deleteMany({
+      contactId: contactId.value,
+      userId: userId.value,
+    })
   }
 }

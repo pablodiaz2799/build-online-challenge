@@ -41,4 +41,8 @@ export class ContactMongoRepository implements ContactRepository {
         return contacts.map((contact) => Contact.fromPrimitives(contact))
       })
   }
+
+  async delete(id: ContactId): Promise<void> {
+    await this.model.findOneAndDelete({ _id: id.value })
+  }
 }
