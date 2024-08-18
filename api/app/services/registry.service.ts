@@ -28,6 +28,7 @@ import { NoteGetController } from "../routes/notes/find/note-get-controller"
 import { NotesGetController } from "../routes/notes/find/notes-get-controller"
 import { NotePostController } from "../routes/notes/create/note-post-controller"
 import { ContactPutController } from "../routes/contacts/update/contact-put-controller"
+import { ContactDeleteController } from "../routes/contacts/delete/contact-delete-controller"
 
 @singleton()
 export class RegistryService {
@@ -46,6 +47,7 @@ export class RegistryService {
       container.resolve(ContactPutController),
       container.resolve(ContactsGetController),
       container.resolve(ContactGetController),
+      container.resolve(ContactDeleteController),
       container.resolve(NoteGetController),
       container.resolve(NotesGetController),
       container.resolve(NotePostController)

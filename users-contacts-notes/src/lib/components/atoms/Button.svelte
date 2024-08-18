@@ -4,6 +4,7 @@
 	export let type: 'button' | 'submit' = 'button'
 	export let width = 'w-28'
 	export let onClick = () => {}
+	export let disabled = false
 
 	let backgroundColor = variant === 'primary' ? 'bg-build-green' : 'bg-white'
 	let backgroundHoverColor =
@@ -13,6 +14,7 @@
 <button
 	on:click={onClick}
 	{type}
+	{disabled}
 	class={`${backgroundColor} ${backgroundHoverColor} text-black ${width} h-12 rounded-3xl font-public-sans`}
 >
 	{text}

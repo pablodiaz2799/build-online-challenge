@@ -54,7 +54,7 @@ export class ContactPutController implements IApiBase {
         this.fileManagerRepository
       )
 
-      const { name, address, email, cellphoneNumber } = req.body
+      const { name, address, title, email, cellphoneNumber } = req.body
       let file: FileType | undefined
 
       if (req.file) {
@@ -68,6 +68,7 @@ export class ContactPutController implements IApiBase {
         req.params.id,
         req.user.id,
         name,
+        title,
         email,
         address,
         cellphoneNumber,

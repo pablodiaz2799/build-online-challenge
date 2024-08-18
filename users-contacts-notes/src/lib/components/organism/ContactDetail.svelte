@@ -4,9 +4,17 @@
 	import editPencil from '$lib/assets/icon/edit-pencil.svg'
 	import deleteTrash from '$lib/assets/icon/delete-trash.svg'
 	import ContactDetailSection from '../molecules/ContactDetailSection.svelte'
+	import { del } from '$lib/stores/contacts'
 
 	export let contact: Contact | null = null
 	export let gap: string = 'gap-4'
+	export let token: string
+
+	async function handleDelete() {
+		if (contact) {
+			await del(contact._id, token)
+		}
+	}
 </script>
 
 <div class="bg-input-dark relative flex flex-col gap-4 rounded-3xl p-4">
@@ -17,14 +25,15 @@
 			<a href={`/contacts/${contact._id}/edit`}>
 				<img src={editPencil} alt="Edit" class="w-6 cursor-pointer" />
 			</a>
-			<img src={deleteTrash} alt="Delete" class="w-6 cursor-pointer" />
+			<button on:click={handleDelete}>
+				<img src={deleteTrash} alt="Delete" class="w-6 cursor-pointer" />
+			</button>
 		</div>
 		<div class="flex flex-col items-center justify-between gap-10 py-4">
 			<div class="border-build-green rounded-full border-2">
 				<div class="border-input-dark rounded-full border-4">
 					<ProfileImage
 						src={`http://localhost:7070${contact?.profilePictureUrl}`}
-						width="w-44"
 						minWith="min-w-44"
 					/>
 				</div>
