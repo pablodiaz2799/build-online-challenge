@@ -130,15 +130,12 @@ export const deleteContact = async (id: string, token: string): Promise<boolean>
 				Authorization: `Bearer ${token}`
 			}
 		})
-		debugger
 		if (!response.ok) {
 			throw new Error('Error deleting contact')
 		}
 		return true
-		debugger
 	} catch (error) {
 		console.error(error)
 		return false
-		debugger
 	}
 }

@@ -87,7 +87,6 @@ export const update = async (
 }
 
 export const del = async (id: string, token: string): Promise<void> => {
-	debugger
 	const response = await deleteContact(id, token)
 	if (response) {
 		toast.success('Contact deleted')
@@ -95,5 +94,4 @@ export const del = async (id: string, token: string): Promise<void> => {
 	} else {
 		toast.error('Error deleting contact')
 	}
-	debugger
 }
