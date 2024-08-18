@@ -55,7 +55,8 @@ const config: Config = {
 				'holder-dark': '#C3C3C3',
 				'holder-light': '#99879D',
 				'txt-dark': '#ffffff',
-				'txt-light': '#000000'
+				'txt-light': '#000000',
+				caption: '#FBEEFF'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

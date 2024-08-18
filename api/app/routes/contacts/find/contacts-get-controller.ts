@@ -5,6 +5,7 @@ import { Auth } from "../../../middlewares/auth"
 import { IApiBase } from "../../../shared/interfaces/api-base.interface"
 import { TypedAuthRequest } from "../../../shared/interfaces/express-types"
 import { inject, injectable } from "tsyringe"
+import { ContactsCounter } from "../../../contexts/build-online-challenge/contacts/application/count/contacts-counter"
 
 @injectable()
 export class ContactsGetController implements IApiBase {
@@ -32,14 +33,17 @@ export class ContactsGetController implements IApiBase {
   ): Promise<void> {
     try {
       const contactsFinder = new ContactsFinder(this.repository)
+      const contactsCounter = new ContactsCounter(this.repository)
       const limit = req.query.limit ? Number(req.query.limit) : 10
       const offset = req.query.page ? (Number(req.query.page) - 1) * limit : 0
-      const contacts = await contactsFinder.run(
-        req.user.id,
-        limit,
-        offset
-      )
-      res.status(200).json(contacts.map((contact) => contact.toPrimitives()))
+      const contacts = await contactsFinder.run(req.user.id, limit, offset)
+      const totalContacts = await contactsCounter.run(req.user.id)
+
+      const response = {
+        data: contacts.map((contact) => contact.toPrimitives()),
+        totalContacts,
+      }
+      res.status(200).json(response)
     } catch (error) {
       console.log(`Error getting contacts ${error}`)
       res.status(500).send(`Error getting contacts information: ${error}`)

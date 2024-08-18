@@ -21,6 +21,10 @@ export class ContactMongoRepository implements ContactRepository {
     )
   }
 
+  async countByUser(userId: ContactUserId): Promise<number> {
+    return this.model.countDocuments({ userId: userId.value })
+  }
+
   async findById(id: ContactId): Promise<Contact | null> {
     const contact = await this.model.findById(id.value)
     return contact ? Contact.fromPrimitives(contact) : null

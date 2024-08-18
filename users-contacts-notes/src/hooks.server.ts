@@ -5,12 +5,6 @@ const protectedRoutes = ['contacts', 'notes']
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const authUser = authenticateUser(event)
-	console.log(authUser)
-	console.log(event.url.pathname)
-	console.log(
-		'condition',
-		protectedRoutes.some((route) => event.url.pathname.includes(route))
-	)
 
 	if (protectedRoutes.some((route) => event.url.pathname.includes(route)) && authUser === null) {
 		throw redirect(303, '/')

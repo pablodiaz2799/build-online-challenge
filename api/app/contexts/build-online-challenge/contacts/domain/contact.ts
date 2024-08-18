@@ -6,11 +6,13 @@ import { ContactCellphoneNumber } from "./value-objects/contact-cellphone-number
 import { ContactProfilePictureUrl } from "./value-objects/contact-profile-picture-url"
 import { ContactUserId } from "./value-objects/contact-user-id"
 import { ContactEmail } from "./value-objects/contact-email"
+import { ContactTitle } from "./value-objects/contact-title"
 
 export class Contact {
   constructor(
     public readonly _id: ContactId,
     public readonly name: ContactName,
+    public readonly title: ContactTitle,
     public readonly email: ContactEmail,
     public readonly address: ContactAddress,
     public readonly cellphoneNumber: ContactCellphoneNumber,
@@ -24,6 +26,9 @@ export class Contact {
       plainData.name !== undefined
         ? new ContactName(plainData.name)
         : this.name,
+      plainData.title !== undefined
+        ? new ContactTitle(plainData.title)
+        : this.title,
       plainData.email !== undefined
         ? new ContactEmail(plainData.email)
         : this.email,
@@ -44,6 +49,7 @@ export class Contact {
     return new Contact(
       new ContactId(plainData._id),
       new ContactName(plainData.name),
+      new ContactTitle(plainData.title),
       new ContactEmail(plainData.email),
       new ContactAddress(plainData.address),
       new ContactCellphoneNumber(plainData.cellphoneNumber),
@@ -56,6 +62,7 @@ export class Contact {
     return {
       _id: this._id.value,
       name: this.name.value,
+      title: this.title.value,
       email: this.email.value,
       address: this.address.value,
       cellphoneNumber: this.cellphoneNumber.value,

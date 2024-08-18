@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let text = ''
-	export let variant = 'primary'
+	export let variant: 'primary' | 'secondary' = 'primary'
 	export let type: 'button' | 'submit' = 'button'
 	export let width = 'w-28'
 	export let onClick = () => {}
