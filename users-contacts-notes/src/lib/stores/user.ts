@@ -16,6 +16,7 @@ export const logout = (): void => {
 		path: '/',
 		expires: new Date(0)
 	})
+	toast.success('Logged out')
 	user.set(null)
 }
 

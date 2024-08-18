@@ -14,6 +14,7 @@ export class ContactCreator {
   async run(
     id: string,
     name: string,
+    title: string,
     email: string,
     address: string,
     cellphoneNumber: string,
@@ -33,6 +34,7 @@ export class ContactCreator {
     const contact = Contact.fromPrimitives({
       _id: id,
       name,
+      title,
       email,
       address,
       cellphoneNumber,

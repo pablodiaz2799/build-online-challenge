@@ -11,6 +11,7 @@ import { Auth } from "../../../middlewares/auth"
 
 type ContactPostRequest = {
   name: string
+  title: string
   email: string
   address: string
   cellphoneNumber: string
@@ -47,7 +48,7 @@ export class ContactPostController implements IApiBase {
   ): Promise<void> {
     try {
       if (req.file?.mimetype.split("/")[0] === "image") {
-        const { name, email, address, cellphoneNumber } = req.body
+        const { name, title, email, address, cellphoneNumber } = req.body
         const file = req.file
         const id = this.idGenerator.generate()
         const contactCreator = new ContactCreator(
@@ -58,6 +59,7 @@ export class ContactPostController implements IApiBase {
         await contactCreator.run(
           id,
           name,
+          title,
           email,
           address,
           cellphoneNumber,
