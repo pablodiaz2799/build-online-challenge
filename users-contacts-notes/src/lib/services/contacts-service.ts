@@ -1,9 +1,10 @@
-import type { AddContact, Contact, UpdateContact } from '$lib/interfaces/contact'
-
-type GetContactsResponse = {
-	data: Contact[]
-	totalContacts: number
-}
+import { PUBLIC_API_BASE_URL } from '$env/static/public'
+import type {
+	AddContact,
+	Contact,
+	GetContactsResponse,
+	UpdateContact
+} from '$lib/interfaces/contact'
 
 export const fetchContacts = async (
 	page: number,
@@ -12,7 +13,7 @@ export const fetchContacts = async (
 	filter?: string
 ): Promise<GetContactsResponse> => {
 	try {
-		let url = `http://localhost:7070/api/contacts?page=${page.toString()}&limit=${limit.toString()}&timestamp=${Date.now()}`
+		let url = `${PUBLIC_API_BASE_URL}contacts?page=${page.toString()}&limit=${limit.toString()}`
 		if (filter) {
 			url += `&filter=${filter}`
 		}
@@ -39,18 +40,15 @@ export const fetchContacts = async (
 
 export const fetchContact = async (id: string, token: string): Promise<Contact | null> => {
 	try {
-		const response = await fetch(
-			`http://localhost:7070/api/contacts/${id}?timestamp=${Date.now()}`,
-			{
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${token}`,
-					'Cache-Control': 'no-cache, no-store, must-revalidate',
-					Pragma: 'no-cache',
-					Expires: '0'
-				}
+		const response = await fetch(`${PUBLIC_API_BASE_URL}contacts/${id}`, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0'
 			}
-		)
+		})
 
 		if (response.ok) {
 			return (await response.json()) as Contact
@@ -76,7 +74,7 @@ export const addContact = async (contact: AddContact, token: string): Promise<bo
 			}
 		}
 
-		const response = await fetch('http://localhost:7070/api/contacts', {
+		const response = await fetch(`${PUBLIC_API_BASE_URL}contacts`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`
@@ -107,7 +105,7 @@ export const updateContact = async (contact: UpdateContact, token: string): Prom
 			}
 		}
 
-		const response = await fetch(`http://localhost:7070/api/contacts/${contact._id}`, {
+		const response = await fetch(`${PUBLIC_API_BASE_URL}contacts/${contact._id}`, {
 			method: 'PUT',
 			headers: {
 				Authorization: `Bearer ${token}`
@@ -126,7 +124,7 @@ export const updateContact = async (contact: UpdateContact, token: string): Prom
 
 export const deleteContact = async (id: string, token: string): Promise<boolean> => {
 	try {
-		const response = await fetch(`http://localhost:7070/api/contacts/${id}`, {
+		const response = await fetch(`${PUBLIC_API_BASE_URL}contacts/${id}`, {
 			method: 'DELETE',
 			headers: {
 				Authorization: `Bearer ${token}`

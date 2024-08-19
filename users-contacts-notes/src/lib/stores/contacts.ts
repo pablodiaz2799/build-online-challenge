@@ -52,7 +52,6 @@ export const getContacts = async (token: string): Promise<void> => {
 	page.set(1)
 	limit.set(10)
 	const { data, totalContacts } = await fetchContacts(1, 10, token, get(filter))
-	console.log(data)
 	contacts.set(data)
 	if (get(contacts).length >= totalContacts) {
 		canLoadMore.set(false)
@@ -77,6 +76,7 @@ export const add = async (
 	const response = await addContact({ name, title, email, address, cellphoneNumber, file }, token)
 	if (response) {
 		toast.success('Contact added')
+		goto('/contacts', { replaceState: true, invalidateAll: true })
 	} else {
 		toast.error('Error adding contact')
 	}

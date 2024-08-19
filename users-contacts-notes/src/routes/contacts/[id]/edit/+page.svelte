@@ -7,6 +7,7 @@
 	import FileUpload from '$lib/components/atoms/FileUpload.svelte'
 	import Button from '$lib/components/atoms/Button.svelte'
 	import { goto } from '$app/navigation'
+	import NavigationButton from '$lib/components/atoms/NavigationButton.svelte'
 
 	let { id } = $page.params
 	let { token } = $page.data
@@ -32,7 +33,8 @@
 	$: contact = $selectedContact
 </script>
 
-<main class="mx-auto mt-16 w-full max-w-[1200px]">
+<main class="mx-auto mb-28 mt-8 w-full max-w-[1200px] sm:mb-0 sm:mt-16">
+	<NavigationButton href={`/contacts/${id}`} label="Cancel" />
 	<div class="bg-input-dark flex flex-col gap-10 rounded-2xl p-6">
 		{#if contact !== null}
 			<div class="flex items-center justify-start gap-10">
@@ -70,7 +72,7 @@
 				<Input label="Email" placeholder={contact?.email} bind:value={email} variant="secondary" />
 			</div>
 			<div class="flex w-full justify-center">
-				<Button variant="primary" text="SAVE" width="w-64" onClick={handleUpdate} />
+				<Button variant="primary" text="SAVE" width="sm:w-64" onClick={handleUpdate} />
 			</div>
 		{:else}
 			<span>No contact found 🫤</span>

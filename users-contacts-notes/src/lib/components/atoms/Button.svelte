@@ -2,7 +2,7 @@
 	export let text = ''
 	export let variant: 'primary' | 'secondary' = 'primary'
 	export let type: 'button' | 'submit' = 'button'
-	export let width = 'w-28'
+	export let width = 'sm:w-28'
 	export let onClick = () => {}
 	export let disabled = false
 
@@ -15,7 +15,7 @@
 	on:click={onClick}
 	{type}
 	{disabled}
-	class={`${backgroundColor} ${backgroundHoverColor} text-black ${width} font-public-sans h-12 rounded-3xl`}
+	class={`${backgroundColor} ${backgroundHoverColor} text-black ${width} font-public-sans h-12 w-28 rounded-3xl`}
 >
 	{text}
 </button>

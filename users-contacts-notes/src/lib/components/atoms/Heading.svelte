@@ -3,4 +3,4 @@
 	export let textAlign = 'text-start'
 </script>
 
-<h1 class={`font-redhat text-4xl font-black text-white my-10 ${textAlign}`}>{text}</h1>
+<h1 class={`font-redhat mx-5 my-10 text-4xl font-black text-white sm:m-0 ${textAlign}`}>{text}</h1>

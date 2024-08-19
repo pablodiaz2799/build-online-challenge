@@ -3,7 +3,7 @@
 	import { page } from '$app/stores'
 	import { onMount } from 'svelte'
 	import { notes, getNotes } from '$lib/stores/notes'
-    import NotesGrid from '$lib/components/organism/NotesGrid.svelte'
+	import NotesGrid from '$lib/components/organism/NotesGrid.svelte'
 	import Button from '$lib/components/atoms/Button.svelte'
 	import { goto } from '$app/navigation'
 
@@ -19,11 +19,13 @@
 <main>
 	<div class="flex items-center justify-between">
 		<Heading text="Notes" />
-		<Button text="Add New" width="w-36" onClick={() => goto('/notes/add')} />
+		<Button text="Add New" width="sm:w-36" onClick={() => goto('/notes/add')} />
 	</div>
 	{#if notesList.length > 0}
 		<NotesGrid notes={notesList} {token} />
 	{:else}
-		<p>No notes found</p>
+		<div class="flex items-center justify-center">
+			<span class="font-public-sans text-xl text-white"> No notes Found 🫤 </span>
+		</div>
 	{/if}
 </main>

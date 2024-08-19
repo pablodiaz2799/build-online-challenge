@@ -42,7 +42,7 @@
 <main class="mx-auto max-w-[1200px]">
 	<div class="flex items-center justify-between">
 		<Heading text="Contacts" />
-		<Button text="Add New" width={"w-52"} onClick={() => goto('/contacts/add')} />
+		<Button text="Add New" width={'sm:w-52'} onClick={() => goto('/contacts/add')} />
 	</div>
 	<div class="my-6">
 		<Input
@@ -54,6 +54,8 @@
 	{#if contactsList.length > 0}
 		<ContactGrid bind:contacts={contactsList} {token} />
 	{:else}
-		<p>No contacts found</p>
+		<div class="flex items-center justify-center">
+			<span class="font-public-sans text-xl text-white"> No Contacts Found 🫤 </span>
+		</div>
 	{/if}
 </main>
