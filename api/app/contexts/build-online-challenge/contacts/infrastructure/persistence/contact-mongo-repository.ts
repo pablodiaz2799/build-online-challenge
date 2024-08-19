@@ -33,10 +33,21 @@ export class ContactMongoRepository implements ContactRepository {
   async findByUser(
     userId: ContactUserId,
     limit: number,
-    offset: number
+    offset: number,
+    filter?: string
   ): Promise<Contact[]> {
+    const query = { userId: userId.value }
+    if (filter !== undefined) {
+      const regex = `.*${filter}.*`
+      query["$or"] = [
+        { name: { $regex: regex } },
+        { email: { $regex: regex } },
+        { cellphoneNumber: { $regex: regex } },
+      ]
+    }
+
     return await this.model
-      .find({ userId: userId.value }, {}, { skip: offset, limit })
+      .find(query, {}, { skip: offset, limit })
       .then((contacts) => {
         return contacts.map((contact) => Contact.fromPrimitives(contact))
       })

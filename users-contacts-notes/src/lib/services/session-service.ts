@@ -35,3 +35,24 @@ export const login = async (email: string, password: string): Promise<User | nul
 		return null
 	}
 }
+
+export const signup = async (name: string, email: string, password: string): Promise<boolean> => {
+	try {
+		const response = await fetch('http://localhost:7070/api/signup', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ name, email, password })
+		})
+
+		if (response.ok) {
+			return true
+		} else {
+			throw new Error('Error signing up')
+		}
+	} catch (error) {
+		console.error(error)
+		return false
+	}
+}

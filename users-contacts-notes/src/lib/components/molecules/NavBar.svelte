@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
 	import { logout, user } from '$lib/stores/user'
+	import { page } from '$app/stores'
 	import NavLink from '$lib/components/atoms/NavLink.svelte'
 	import Button from '$lib/components/atoms/Button.svelte'
 
@@ -11,9 +12,15 @@
 		logout()
 		goto('/')
 	}
+
+	let loginVariant: 'primary' | 'secondary'
+	let signupVariant: 'primary' | 'secondary'
+
+	$: loginVariant = $page.url.pathname === '/' ? 'primary' : 'secondary'
+	$: signupVariant = $page.url.pathname === '/signup' ? 'primary' : 'secondary'
 </script>
 
-<nav class="flex h-20 w-full items-center justify-between rounded-3xl bg-white px-6 mb-6">
+<nav class="mb-6 flex h-20 w-full items-center justify-between rounded-3xl bg-white px-6">
 	<div class="flex flex-1 items-center">
 		<Logo />
 	</div>
@@ -27,9 +34,8 @@
 		{#if currentUser}
 			<Button onClick={onLogout} text="Logout" />
 		{:else}
-			<!-- TODO: Make this change forms -->
-			<Button onClick={() => goto('/login')} text="Login" variant="secondary" />
-			<Button onClick={() => goto('/register')} text="Register" />
+			<Button onClick={() => goto('/')} text="Login" variant={loginVariant} />
+			<Button onClick={() => goto('/signup')} text="Register" variant={signupVariant} />
 		{/if}
 	</div>
 </nav>

@@ -13,7 +13,7 @@
 
 <Toaster />
 
-<main class="mx-auto mt-8 w-full px-6">
+<main class="mx-auto mt-8 w-full max-w-[1200px] px-6">
 	<NavBar />
 	<slot></slot>
 </main>

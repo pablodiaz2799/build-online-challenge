@@ -22,9 +22,9 @@
 		await getContact(id, token)
 	})
 
-	const handleUpdate = () => {
+	const handleUpdate = async () => {
 		if (contact !== null) {
-			update({ _id: contact._id, name, title, address, cellphoneNumber, email, file }, token)
+			await update({ _id: contact._id, name, title, address, cellphoneNumber, email, file }, token)
 			goto(`/contacts/${id}`, { replaceState: true })
 		}
 	}
@@ -64,7 +64,7 @@
 				<Input
 					label="Phone"
 					placeholder={contact?.cellphoneNumber}
-					value={cellphoneNumber}
+					bind:value={cellphoneNumber}
 					variant="secondary"
 				/>
 				<Input label="Email" placeholder={contact?.email} bind:value={email} variant="secondary" />

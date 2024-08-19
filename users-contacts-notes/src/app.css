@@ -79,13 +79,4 @@
 		@apply bg-background text-foreground;
 		background-color: black;
 	}
-	p,
-	span,
-	h1,
-	h2,
-	h3,
-	h4,
-	a {
-		color: white;
-	}
 }

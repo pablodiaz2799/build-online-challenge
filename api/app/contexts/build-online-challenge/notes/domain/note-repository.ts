@@ -11,4 +11,6 @@ export interface NoteRepository {
     contactId: NoteContactId,
     userId: NoteUserId
   ): Promise<void>
+  countByUser(userId: NoteUserId): Promise<number>
+
 }

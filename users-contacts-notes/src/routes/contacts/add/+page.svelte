@@ -7,8 +7,12 @@
 	import FileUpload from '$lib/components/atoms/FileUpload.svelte'
 	import Button from '$lib/components/atoms/Button.svelte'
 	import Heading from '$lib/components/atoms/Heading.svelte'
+	// @ts-ignore
+	import GooglePlacesAutocomplete from '@silintl/svelte-google-places-autocomplete'
+	import type { PlaceDetailEvent } from '$lib/interfaces/places'
+	// import AddressSerach from '$lib/components/molecules/AddressSerach.svelte'
 
-	let { token } = $page.data
+	let { token, mapsApiKey } = $page.data
 
 	let name: string | undefined = undefined
 	let title: string | undefined = undefined
@@ -16,6 +20,10 @@
 	let cellphoneNumber: string | undefined = undefined
 	let email: string | undefined = undefined
 	let file: File | undefined = undefined
+
+	const onPlaceChanged = (e: PlaceDetailEvent) => {
+		address = e.detail.text
+	}
 
 	const handleAdd = () => {
 		if (
@@ -41,8 +49,20 @@
 		<div class=" grid w-full grid-cols-1 gap-4 md:grid-cols-2">
 			<Input label="Name" placeholder={'Full Name'} bind:value={name} variant="secondary" />
 			<Input label="Title" placeholder={'Title'} bind:value={title} variant="secondary" />
-			<FileUpload label="Profile Picture" bind:file />
-			<Input label="Address" placeholder={'Address'} bind:value={address} variant="secondary" />
+			<FileUpload label={'Profile Picture'} bind:file />
+			<!-- <AddressSerach mapsApiKey={mapsApiKey} bind:address /> -->
+			<!-- <Input label="Address" placeholder={'Address'} bind:value={address} variant="secondary" /> -->
+			<div class="flex w-full flex-col gap-2">
+				<span class="font-redhat text-xl font-bold text-white">Address</span>
+				<GooglePlacesAutocomplete
+					apiKey={mapsApiKey}
+					bind:value={address}
+					placeholder={'Enter your address'}
+					on:place_changed={onPlaceChanged}
+					class={'bg-input-light placeholder-holder-light h-14 rounded-lg px-3 text-black'}
+				/>
+			</div>
+			<!-- {options} -->
 			<Input
 				label="Phone"
 				placeholder={'Phone Number'}
@@ -56,3 +76,6 @@
 		</div>
 	</div>
 </main>
+
+<style>
+</style>

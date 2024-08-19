@@ -19,7 +19,7 @@ export class ContactsGetController implements IApiBase {
       "/",
       Auth,
       async (
-        req: TypedAuthRequest<{ limit: string; page: string }, {}>,
+        req: TypedAuthRequest<{ limit: string; page: string; filter?: string }, {}>,
         res: Response
       ) => {
         await this.run(req, res)
@@ -28,7 +28,7 @@ export class ContactsGetController implements IApiBase {
   }
 
   async run(
-    req: TypedAuthRequest<{ limit: string; page: string }, {}>,
+    req: TypedAuthRequest<{ limit: string; page: string; filter?: string }, {}>,
     res: Response
   ): Promise<void> {
     try {
@@ -36,7 +36,8 @@ export class ContactsGetController implements IApiBase {
       const contactsCounter = new ContactsCounter(this.repository)
       const limit = req.query.limit ? Number(req.query.limit) : 10
       const offset = req.query.page ? (Number(req.query.page) - 1) * limit : 0
-      const contacts = await contactsFinder.run(req.user.id, limit, offset)
+      const filter = req.query.filter
+      const contacts = await contactsFinder.run(req.user.id, limit, offset, filter)
       const totalContacts = await contactsCounter.run(req.user.id)
 
       const response = {

@@ -3,10 +3,11 @@
 	import { canLoadMore, loadingContacts, loadMoreContacts } from '$lib/stores/contacts'
 	import ContactCard from '$lib/components/molecules/ContactCard.svelte'
 	import InfiniteLoading from 'svelte-infinite-loading'
-	import Spinner from '$lib/components/atoms/Spinner.svelte'
 
 	export let contacts: Contact[] = []
 	export let token: string = ''
+
+	$: contactsList = contacts
 
 	$: canLoad = $canLoadMore
 	$: loading = $loadingContacts
@@ -25,8 +26,8 @@
 	}
 </script>
 
-<div class=" grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-	{#each contacts as item}
+<div class=" grid w-full grid-cols-1 gap-6 gap-x-8 md:grid-cols-2 mb-20">
+	{#each contactsList as item}
 		<ContactCard contact={item} />
 	{/each}
 
