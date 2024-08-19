@@ -9,6 +9,7 @@ import { Auth } from "../../../middlewares/auth"
 import { IApiBase } from "../../../shared/interfaces/api-base.interface"
 import { TypedAuthRequest } from "../../../shared/interfaces/express-types"
 import { inject, injectable } from "tsyringe"
+import { NotesCounter } from "../../../contexts/build-online-challenge/notes/application/count/notes-counter"
 
 @injectable()
 export class NotesGetController implements IApiBase {
@@ -38,6 +39,7 @@ export class NotesGetController implements IApiBase {
   ): Promise<void> {
     try {
       const notesFinder = new NotesFinder(this.repository)
+      const notesCounter = new NotesCounter(this.repository)
       const contactFinder = new ContactFinder(this.contactRepository)
 
       const limit = req.query.limit ? Number(req.query.limit) : 10
@@ -61,11 +63,18 @@ export class NotesGetController implements IApiBase {
           contact: {
             name: contact?.name,
             profilePictureUrl: contact?.profilePictureUrl,
+            cellphoneNumber: contact?.cellphoneNumber
           },
         }
       })
 
-      res.status(200).json(mappedNotes)
+      const totalNotes = await notesCounter.run(req.user.id)
+      const response = {
+        data: mappedNotes,
+        totalNotes,
+      }
+
+      res.status(200).json(response)
     } catch (error) {
       console.log(`Error getting notes ${error}`)
       res.status(500).send(`Error getting notes information: ${error}`)

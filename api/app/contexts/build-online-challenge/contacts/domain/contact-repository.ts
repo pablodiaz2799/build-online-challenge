@@ -6,8 +6,11 @@ export interface ContactRepository {
   findByUser(
     userId: ContactUserId,
     limit: number,
-    offset: number
+    offset: number,
+    filter?: string
   ): Promise<Contact[]>
   findById(id: ContactId): Promise<Contact | null>
   save(contact: Contact): Promise<void>
+  countByUser(userId: ContactUserId): Promise<number>
+  delete(id: ContactId): Promise<void>
 }

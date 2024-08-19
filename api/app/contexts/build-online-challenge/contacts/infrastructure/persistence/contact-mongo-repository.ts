@@ -21,6 +21,10 @@ export class ContactMongoRepository implements ContactRepository {
     )
   }
 
+  async countByUser(userId: ContactUserId): Promise<number> {
+    return this.model.countDocuments({ userId: userId.value })
+  }
+
   async findById(id: ContactId): Promise<Contact | null> {
     const contact = await this.model.findById(id.value)
     return contact ? Contact.fromPrimitives(contact) : null
@@ -29,12 +33,27 @@ export class ContactMongoRepository implements ContactRepository {
   async findByUser(
     userId: ContactUserId,
     limit: number,
-    offset: number
+    offset: number,
+    filter?: string
   ): Promise<Contact[]> {
+    const query = { userId: userId.value }
+    if (filter !== undefined) {
+      const regex = `.*${filter}.*`
+      query["$or"] = [
+        { name: { $regex: regex } },
+        { email: { $regex: regex } },
+        { cellphoneNumber: { $regex: regex } },
+      ]
+    }
+
     return await this.model
-      .find({ userId: userId.value }, {}, { skip: offset, limit })
+      .find(query, {}, { skip: offset, limit })
       .then((contacts) => {
         return contacts.map((contact) => Contact.fromPrimitives(contact))
       })
+  }
+
+  async delete(id: ContactId): Promise<void> {
+    await this.model.findOneAndDelete({ _id: id.value })
   }
 }

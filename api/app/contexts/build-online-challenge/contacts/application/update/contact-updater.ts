@@ -16,6 +16,7 @@ export class ContactUpdater {
     id: string,
     userId: string,
     name?: string,
+    title?: string,
     email?: string,
     address?: string,
     cellphoneNumber?: string,
@@ -28,6 +29,7 @@ export class ContactUpdater {
 
     let plainDataToUpdate = {
       name,
+      title,
       email,
       address,
       cellphoneNumber,
