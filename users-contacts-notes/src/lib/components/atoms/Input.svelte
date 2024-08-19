@@ -15,7 +15,7 @@
 
 <div class="flex flex-col gap-2">
 	{#if label !== ''}
-		<span class="font-redhat text-xl font-bold text-white">{label}</span>
+		<span class="font-redhat text-base font-bold text-white sm:text-xl">{label}</span>
 	{/if}
 	<div class="relative">
 		<input

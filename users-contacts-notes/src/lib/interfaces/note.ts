@@ -6,6 +6,11 @@ export interface Note {
 	contact: {
 		name: string
 		profilePictureUrl: string
-        cellphoneNumber: string
+		cellphoneNumber: string
 	}
+}
+
+export interface GetNotesResponse {
+	data: Note[]
+	totalNotes: number
 }

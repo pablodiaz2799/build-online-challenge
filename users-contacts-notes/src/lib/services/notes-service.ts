@@ -1,9 +1,5 @@
-import type { Note } from '$lib/interfaces/note'
-
-type GetNotesResponse = {
-	data: Note[]
-	totalNotes: number
-}
+import { PUBLIC_API_BASE_URL } from '$env/static/public'
+import type { GetNotesResponse, Note } from '$lib/interfaces/note'
 
 export const fetchNotes = async (
 	page: number,
@@ -12,7 +8,7 @@ export const fetchNotes = async (
 ): Promise<GetNotesResponse> => {
 	try {
 		const response = await fetch(
-			`http://localhost:7070/api/notes?page=${page.toString()}&limit=${limit.toString()}&timestamp=${Date.now()}`,
+			`${PUBLIC_API_BASE_URL}notes?page=${page.toString()}&limit=${limit.toString()}&timestamp=${Date.now()}`,
 			{
 				method: 'GET',
 				headers: {
@@ -37,7 +33,7 @@ export const fetchNotes = async (
 
 export const fetchNote = async (id: string, token: string): Promise<Note | null> => {
 	try {
-		const response = await fetch(`http://localhost:7070/api/notes/${id}?timestamp=${Date.now()}`, {
+		const response = await fetch(`${PUBLIC_API_BASE_URL}notes/${id}?timestamp=${Date.now()}`, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -58,9 +54,13 @@ export const fetchNote = async (id: string, token: string): Promise<Note | null>
 	}
 }
 
-export const addNote = async (content: string, contactId: string, token: string): Promise<boolean> => {
+export const addNote = async (
+	content: string,
+	contactId: string,
+	token: string
+): Promise<boolean> => {
 	try {
-		const response = await fetch(`http://localhost:7070/api/contacts/${contactId}/notes`, {
+		const response = await fetch(`${PUBLIC_API_BASE_URL}contacts/${contactId}/notes`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -76,6 +76,6 @@ export const addNote = async (content: string, contactId: string, token: string)
 		}
 	} catch (error) {
 		console.error(error)
-        return false
+		return false
 	}
 }

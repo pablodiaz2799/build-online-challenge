@@ -27,3 +27,8 @@ export interface AddContact {
 	cellphoneNumber: string
 	file: File
 }
+
+export interface GetContactsResponse {
+	data: Contact[]
+	totalContacts: number
+}

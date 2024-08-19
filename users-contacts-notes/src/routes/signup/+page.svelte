@@ -22,10 +22,10 @@
 	<Heading text="Sign Up" textAlign={'text-center'} />
 	<form on:submit|preventDefault={onSignup} class="flex flex-col items-center gap-10">
 		<div class="flex w-full flex-col gap-6">
-			<Input type="text" placeholder="John Doe" bind:value={name} />
-			<Input type="text" placeholder="john@doe.com" bind:value={email} />
-			<Input type="password" placeholder="********" bind:value={password} />
+			<Input type="text" placeholder="John Doe" bind:value={name} label={"Name"} />
+			<Input type="text" placeholder="john@doe.com" bind:value={email} label={"Email"} />
+			<Input type="password" placeholder="********" bind:value={password} label={"Password"}/>
 		</div>
-		<Button type="submit" text="Sign up" width={'w-64'} />
+		<Button type="submit" text="Sign up" width={'sm:w-64'} />
 	</form>
 </div>

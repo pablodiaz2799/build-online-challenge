@@ -24,6 +24,6 @@
 			<Input type="text" placeholder="john@doe.com" bind:value={email} />
 			<Input type="password" placeholder="********" bind:value={password} />
 		</div>
-		<Button type="submit" text="Login" width={"w-64"} />
+		<Button type="submit" text="Login" width={"sm:w-64"} />
 	</form>
 </div>

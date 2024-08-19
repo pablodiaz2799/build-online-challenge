@@ -3,6 +3,7 @@
 	import { getNote, selectedNote } from '$lib/stores/notes'
 	import { onMount } from 'svelte'
 	import NoteDetail from '$lib/components/organism/NoteDetail.svelte'
+	import NavigationButton from '$lib/components/atoms/NavigationButton.svelte'
 
 	let { id } = $page.params
 	let { token } = $page.data
@@ -14,13 +15,7 @@
 	$: note = $selectedNote
 </script>
 
-<main class="mx-auto mt-16 w-full max-w-[920px]">
+<main class="mx-auto mt-8 w-full max-w-[920px] sm:mt-16">
+	<NavigationButton href="/notes" />
 	<NoteDetail {note} />
-	<!-- {#if contact}
-		<h1>{contact.name}</h1>
-		<p>{contact.email}</p>
-		<p>{contact.cellphoneNumber}</p>
-	{:else}
-		<p>No contact found 🫤</p>
-	{/if} -->
 </main>

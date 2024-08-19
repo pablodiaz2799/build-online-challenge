@@ -10,6 +10,7 @@
 	import ContactResult from '$lib/components/molecules/ContactResult.svelte'
 	import Input from '$lib/components/atoms/Input.svelte'
 	import deleteTrash from '$lib/assets/icon/delete-trash.svg'
+	import NavigationButton from '$lib/components/atoms/NavigationButton.svelte'
 
 	let { token } = $page.data
 
@@ -19,27 +20,22 @@
 	let contactList: Contact[] = []
 	let selectedContact: Contact | undefined
 
-	// Function to be triggered after the delay
 	async function handleChange() {
 		if (searchContent === '') {
 			contactList = []
 			return
 		}
-		// console.log('Input value:', searchContent)
 		contactList = await getFilteredContacts(searchContent, token)
-		// Your code here...
 	}
 
 	$: watchInput(searchContent)
 
 	function watchInput(value: string) {
-		// Clear the previous timeout if any
 		clearTimeout(timeout)
 
-		// Set a new timeout to call handleChange after the user stops typing
 		timeout = setTimeout(async () => {
 			await handleChange()
-		}, 2000) // Adjust the delay time as needed
+		}, 1000)
 	}
 
 	const handleSelect = (contact: Contact) => () => {
@@ -58,14 +54,15 @@
 	}
 </script>
 
-<main class="mx-auto mt-16 w-full max-w-[1200px]">
+<main class="mx-auto mt-8 w-full max-w-[1200px] sm:mt-16">
+	<NavigationButton href="/notes" />
 	<Heading text="Add New Note" />
 	<div class="relative flex w-full flex-col gap-10 rounded-3xl p-4">
 		<div class="relative w-full">
 			<Input
 				bind:value={searchContent}
 				variant={'tertiary'}
-				placeholder="Search contact by name, email or phone..."
+				placeholder="Search contact by name or email..."
 			/>
 			{#if contactList.length > 0}
 				<div
@@ -99,7 +96,7 @@
 			placeholder="Type your note here..."
 		/>
 		<div class="flex w-full justify-center">
-			<Button variant="primary" text="SAVE" width="w-64" onClick={handleAdd} />
+			<Button variant="primary" text="SAVE" width="sm:w-64" onClick={handleAdd} />
 		</div>
 	</div>
 </main>

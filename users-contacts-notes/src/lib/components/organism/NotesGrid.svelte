@@ -1,9 +1,8 @@
 <script lang="ts">
-	import type { Contact } from '$lib/interfaces/contact'
 	import type { Note } from '$lib/interfaces/note'
 	import { canLoadMore, loadingNotes, loadMoreNotes } from '$lib/stores/notes'
-	// import ContactCard from '$lib/components/molecules/ContactCard.svelte'
-    import NoteCard from '../molecules/NoteCard.svelte';
+
+	import NoteCard from '../molecules/NoteCard.svelte'
 	import InfiniteLoading from 'svelte-infinite-loading'
 
 	export let notes: Note[] = []
@@ -26,7 +25,7 @@
 	}
 </script>
 
-<div class=" grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+<div class=" mb-28 grid w-full grid-cols-1 gap-6 gap-x-8 sm:mb-20 md:grid-cols-2 xl:grid-cols-3">
 	{#each notes as item}
 		<NoteCard note={item} />
 	{/each}

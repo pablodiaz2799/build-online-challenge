@@ -3,6 +3,7 @@
 	import { getContact, selectedContact } from '$lib/stores/contacts'
 	import { onMount } from 'svelte'
 	import ContactDetail from '$lib/components/organism/ContactDetail.svelte'
+	import NavigationButton from '$lib/components/atoms/NavigationButton.svelte'
 
 	let { id } = $page.params
 	let { token } = $page.data
@@ -14,6 +15,7 @@
 	$: contact = $selectedContact
 </script>
 
-<main class="mx-auto mt-16 w-full max-w-[920px]">
+<main class="mx-auto mt-8 w-full max-w-[920px] sm:mt-16">
+	<NavigationButton href="/contacts" />
 	<ContactDetail {contact} {token} />
 </main>

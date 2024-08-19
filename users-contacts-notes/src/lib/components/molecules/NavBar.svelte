@@ -10,7 +10,7 @@
 	$: currentUser = $user
 	const onLogout = () => {
 		logout()
-		goto('/')
+		goto('/', { replaceState: true, invalidateAll: true })
 	}
 
 	let loginVariant: 'primary' | 'secondary'
@@ -20,7 +20,7 @@
 	$: signupVariant = $page.url.pathname === '/signup' ? 'primary' : 'secondary'
 </script>
 
-<nav class="mb-6 flex h-20 w-full items-center justify-between rounded-3xl bg-white px-6">
+<nav class="mb-6 hidden h-20 w-full items-center justify-between rounded-3xl bg-white px-6 sm:flex">
 	<div class="flex flex-1 items-center">
 		<Logo />
 	</div>
