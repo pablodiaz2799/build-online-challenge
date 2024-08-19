@@ -8,21 +8,23 @@ type GetContactsResponse = {
 export const fetchContacts = async (
 	page: number,
 	limit: number,
-	token: string
+	token: string,
+	filter?: string
 ): Promise<GetContactsResponse> => {
 	try {
-		const response = await fetch(
-			`http://localhost:7070/api/contacts?page=${page.toString()}&limit=${limit.toString()}&timestamp=${Date.now()}`,
-			{
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${token}`,
-					'Cache-Control': 'no-cache, no-store, must-revalidate',
-					Pragma: 'no-cache',
-					Expires: '0'
-				}
+		let url = `http://localhost:7070/api/contacts?page=${page.toString()}&limit=${limit.toString()}&timestamp=${Date.now()}`
+		if (filter) {
+			url += `&filter=${filter}`
+		}
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0'
 			}
-		)
+		})
 
 		if (response.ok) {
 			return (await response.json()) as GetContactsResponse

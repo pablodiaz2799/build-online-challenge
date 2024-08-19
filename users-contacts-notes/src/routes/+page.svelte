@@ -17,9 +17,13 @@
 	}
 </script>
 
-<Heading text="Welcome" />
-<form on:submit|preventDefault={onLogin}>
-	<Input type="text" placeholder="john@doe.com" bind:value={email} />
-	<Input type="password" placeholder="********" bind:value={password} />
-	<Button type="submit" text="Login" />
-</form>
+<div class="mx-auto mt-16 flex w-full max-w-[720px] flex-col justify-center gap-8">
+	<Heading text="Welcome" textAlign={'text-center'} />
+	<form on:submit|preventDefault={onLogin} class="flex flex-col items-center gap-10">
+		<div class="w-full flex flex-col gap-6">
+			<Input type="text" placeholder="john@doe.com" bind:value={email} />
+			<Input type="password" placeholder="********" bind:value={password} />
+		</div>
+		<Button type="submit" text="Login" width={"w-64"} />
+	</form>
+</div>

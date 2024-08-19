@@ -14,6 +14,7 @@ export const contacts = writable<Contact[]>([])
 export const selectedContact = writable<Contact | null>(null)
 export const page = writable<number>(1)
 export const limit = writable<number>(10)
+export const filter = writable<string>('')
 export const canLoadMore = writable<boolean>(true)
 export const loadingContacts = writable<boolean>(true)
 
@@ -26,7 +27,13 @@ export const loadMoreContacts = async (token: string): Promise<void> => {
 	page.update((p) => p + 1)
 	const currentPage = get(page)
 	const currentLimit = get(limit)
-	const { data, totalContacts } = await fetchContacts(currentPage, currentLimit, token)
+	const currentFilter = get(filter)
+	const { data, totalContacts } = await fetchContacts(
+		currentPage,
+		currentLimit,
+		token,
+		currentFilter
+	)
 	contacts.update((items) => [...items, ...data])
 	if (get(contacts).length >= totalContacts) {
 		canLoadMore.set(false)
@@ -34,12 +41,17 @@ export const loadMoreContacts = async (token: string): Promise<void> => {
 	loadingContacts.set(false)
 }
 
+export const getFilteredContacts = async (filter: string, token: string): Promise<Contact[]> => {
+	const { data } = await fetchContacts(1, 100, token, filter)
+	return data
+}
+
 export const getContacts = async (token: string): Promise<void> => {
 	loadingContacts.set(true)
 	canLoadMore.set(true)
 	page.set(1)
 	limit.set(10)
-	const { data, totalContacts } = await fetchContacts(1, 10, token)
+	const { data, totalContacts } = await fetchContacts(1, 10, token, get(filter))
 	console.log(data)
 	contacts.set(data)
 	if (get(contacts).length >= totalContacts) {

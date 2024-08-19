@@ -26,6 +26,10 @@ export class NoteMongoRepository implements NoteRepository {
     return notes.map((note) => Note.fromPrimitives(note))
   }
 
+  async countByUser(userId: NoteUserId): Promise<number> {
+    return this.model.countDocuments({ userId: userId.value })
+  }
+
   async findById(id: NoteId): Promise<Note | null> {
     const note = await this.model.findById(id.value)
     return note ? Note.fromPrimitives(note) : null

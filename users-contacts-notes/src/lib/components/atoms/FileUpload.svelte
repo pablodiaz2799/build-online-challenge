@@ -4,7 +4,7 @@
 	import deleteTrash from '$lib/assets/icon/delete-trash-dark.svg'
 
 	export let file: File | undefined
-	export let label = 'Upload file'
+	export let label = 'Profile Picture'
 
 	const handleFilesSelect = (e: {
 		detail: { acceptedFiles: File[]; fileRejections: File[] }
