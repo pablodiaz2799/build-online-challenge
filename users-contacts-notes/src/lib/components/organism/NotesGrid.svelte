@@ -1,8 +1,7 @@
 <script lang="ts">
-	import type { Contact } from '$lib/interfaces/contact'
 	import type { Note } from '$lib/interfaces/note'
 	import { canLoadMore, loadingNotes, loadMoreNotes } from '$lib/stores/notes'
-	// import ContactCard from '$lib/components/molecules/ContactCard.svelte'
+
 	import NoteCard from '../molecules/NoteCard.svelte'
 	import InfiniteLoading from 'svelte-infinite-loading'
 

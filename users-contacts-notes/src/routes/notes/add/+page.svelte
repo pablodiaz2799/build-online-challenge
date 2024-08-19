@@ -20,27 +20,22 @@
 	let contactList: Contact[] = []
 	let selectedContact: Contact | undefined
 
-	// Function to be triggered after the delay
 	async function handleChange() {
 		if (searchContent === '') {
 			contactList = []
 			return
 		}
-		// console.log('Input value:', searchContent)
 		contactList = await getFilteredContacts(searchContent, token)
-		// Your code here...
 	}
 
 	$: watchInput(searchContent)
 
 	function watchInput(value: string) {
-		// Clear the previous timeout if any
 		clearTimeout(timeout)
 
-		// Set a new timeout to call handleChange after the user stops typing
 		timeout = setTimeout(async () => {
 			await handleChange()
-		}, 1000) // Adjust the delay time as needed
+		}, 1000)
 	}
 
 	const handleSelect = (contact: Contact) => () => {
