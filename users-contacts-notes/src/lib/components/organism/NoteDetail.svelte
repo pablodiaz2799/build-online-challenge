@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_STATIC_FILES_URL } from '$env/static/public'
 	import type { Note } from '$lib/interfaces/note'
 	import ProfileImage from '../atoms/ProfileImage.svelte'
 
@@ -12,7 +13,7 @@
 	{:else}
 		<div class="flex items-center justify-start gap-5 py-4">
 			<ProfileImage
-				src={`http://localhost:7070${note.contact.profilePictureUrl}`}
+				src={`${PUBLIC_STATIC_FILES_URL}${note.contact.profilePictureUrl}`}
 				minWith="min-w-44"
 			/>
 

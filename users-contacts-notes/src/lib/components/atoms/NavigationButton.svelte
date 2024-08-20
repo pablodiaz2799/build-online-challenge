@@ -5,7 +5,7 @@
 	export let href = '/'
 </script>
 
-<a {href} class="flex gap-2 mb-4">
+<a {href} class="flex gap-2 mb-4 sm:hidden">
 	<img src={backArrow} alt={label} class="w-4 cursor-pointer" />
 	<span class="text-nav-mobile-text font-redhat text-xl font-light">{label}</span>
 </a>

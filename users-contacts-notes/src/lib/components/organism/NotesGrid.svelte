@@ -25,7 +25,7 @@
 	}
 </script>
 
-<div class=" mb-28 grid w-full grid-cols-1 gap-6 gap-x-8 sm:mb-20 md:grid-cols-2 xl:grid-cols-3">
+<div class="mb-28 grid w-full grid-cols-1 gap-6 gap-x-8 sm:mb-20 md:grid-cols-2">
 	{#each notes as item}
 		<NoteCard note={item} />
 	{/each}

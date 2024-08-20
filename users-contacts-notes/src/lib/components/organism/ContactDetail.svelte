@@ -5,6 +5,7 @@
 	import deleteTrash from '$lib/assets/icon/delete-trash.svg'
 	import ContactDetailSection from '../molecules/ContactDetailSection.svelte'
 	import { del } from '$lib/stores/contacts'
+	import { PUBLIC_STATIC_FILES_URL } from '$env/static/public'
 
 	export let contact: Contact | null = null
 	export let gap: string = 'gap-4'
@@ -33,7 +34,7 @@
 			<div class="border-build-green rounded-full border-2">
 				<div class="border-input-dark rounded-full border-4">
 					<ProfileImage
-						src={`http://localhost:7070${contact?.profilePictureUrl}`}
+						src={`${PUBLIC_STATIC_FILES_URL}${contact?.profilePictureUrl}`}
 						minWith="min-w-44"
 					/>
 				</div>

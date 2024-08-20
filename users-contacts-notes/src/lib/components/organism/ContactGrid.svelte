@@ -26,7 +26,7 @@
 	}
 </script>
 
-<div class=" mb-28 grid w-full grid-cols-1 gap-6 gap-x-8 sm:mb-20 md:grid-cols-2">
+<div class="mb-28 grid w-full grid-cols-1 gap-6 gap-x-8 sm:mb-20 md:grid-cols-2">
 	{#each contactsList as item}
 		<ContactCard contact={item} />
 	{/each}

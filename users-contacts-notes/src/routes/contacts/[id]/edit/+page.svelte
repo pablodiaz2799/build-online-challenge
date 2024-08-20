@@ -8,6 +8,7 @@
 	import Button from '$lib/components/atoms/Button.svelte'
 	import { goto } from '$app/navigation'
 	import NavigationButton from '$lib/components/atoms/NavigationButton.svelte'
+	import { PUBLIC_STATIC_FILES_URL } from '$env/static/public'
 
 	let { id } = $page.params
 	let { token } = $page.data
@@ -41,7 +42,7 @@
 				<div class="border-build-green rounded-full border-2">
 					<div class="border-input-dark rounded-full border-4">
 						<ProfileImage
-							src={`http://localhost:7070/${contact?.profilePictureUrl}`}
+							src={`${PUBLIC_STATIC_FILES_URL}${contact?.profilePictureUrl}`}
 							alt={contact?.name}
 							minWith="min-w-36"
 						/>
